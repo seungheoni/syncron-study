@@ -7,6 +7,9 @@ spring:
     username: root
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    # 커넥션을 많이 필요로 하므로 풀사이즈를 수정하였음
+    hikari:
+      maximum-pool-size: 40
   jpa:
     hibernate:
       ddl-auto: create
