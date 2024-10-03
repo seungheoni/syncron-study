@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  db:
+    build: .
+    container_name: mysql-container
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: 'stock_example'
+    volumes:
+      - ./data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - mysql-network
+    restart: unless-stopped
+
+volumes:
+  db_data:
+
+networks:
+  mysql-network:
+    driver: bridge
