@@ -8,16 +8,27 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
       MYSQL_DATABASE: 'stock_example'
     volumes:
-      - ./data:/var/lib/mysql
+      - ./data/rdbms:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
-      - mysql-network
+      - db-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:latest
+    container_name: redis-container
+    volumes:
+      - ./data/nosql:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - db-network
     restart: unless-stopped
 
 volumes:
   db_data:
 
 networks:
-  mysql-network:
+  db-network:
     driver: bridge
